@@ -1,3 +1,5 @@
+import {createSlice} from "@reduxjs/toolkit";
+
 const SET_TASK = 'set/task'
 const SET_ACTIVE = 'active/task'
 const REMOVE_ACTIVE = 'nonactive/task'
@@ -20,74 +22,46 @@ type ActionType = {
   payload: any;
 }
 
-const InitialState: Tasks = {
+const initialState: Tasks = {
   tasks: [],
   lastUsedId: 0,
 }
 
-export const tasksReducer = (state: Tasks = InitialState, action: ActionType)=> {
-  switch (action.type) {
-    case SET_TASK: {
-      return {
-        ...state,
-        tasks: [...state.tasks, action.payload],
-        lastUsedId: action.payload.id
-      }
+const taskSlice = createSlice({
+  name: 'tasks',
+  initialState,
+  reducers: {
+    setTask(state: Tasks, action: ActionType) {
+      state.tasks = [...state.tasks, action.payload]
+      state.lastUsedId = action.payload.id
+    },
+    setActive(state: Tasks, action: ActionType) {
+      state.tasks = state.tasks.map((it, index) => {
+        return it.id === action.payload ? {...it, status: true} : it
+      })
+    },
+    removeActive(state: Tasks, action: ActionType) {
+      state.tasks = state.tasks.map((it, index) => {
+        return it.id === action.payload ? {...it, status: false} : it
+      })
+    },
+    removeTask(state: Tasks, action: ActionType) {
+      state.tasks = state.tasks.filter((it, index) => {
+        return it.id !== action.payload && it
+      })
+    },
+    clearTasks(state: Tasks) {
+      state.tasks = []
+      state.lastUsedId = 0
     }
-    case SET_ACTIVE: {
-      return {
-        ...state,
-        tasks: state.tasks.map((it, index) => {
-          return it.id === action.payload ? {...it, status: true} : it
-        }),
-        lastUsedId: state.lastUsedId
-      }
-    }
-    case REMOVE_ACTIVE: {
-      return {
-        ...state,
-        tasks: state.tasks.map((it, index) => {
-          return it.id === action.payload ? {...it, status: false} : it
-        }),
-        lastUsedId: state.lastUsedId
-      }
-    }
-    case REMOVE_TASK: {
-      return {
-        ...state,
-        tasks: state.tasks.filter((it, index) => {
-          return it.id !== action.payload && it
-        }),
-        lastUsedId: state.lastUsedId
-      }
-    }
-    case CLEAR_TASKS: {
-      return {
-        tasks: [],
-        lastUsedId: 0
-      }
-    }
-    default:
-      return state;
   }
-}
+})
 
-export const setTask = (payload: Task) => {
-  return {type: SET_TASK, payload: payload}
-}
+export const {
+  setTask,
+  setActive,
+  removeActive,
+  clearTasks,
+  removeTask} = taskSlice.actions
 
-export const setActive = (payload: number) => {
-  return {type: SET_ACTIVE, payload: payload}
-}
-
-export const removeActive = (payload: number) => {
-  return {type: REMOVE_ACTIVE, payload: payload}
-}
-
-export const removeTask = (payload: number) => {
-  return {type: REMOVE_TASK, payload: payload}
-}
-
-export const clearTasks = () => {
-  return {type: CLEAR_TASKS}
-}
+export default taskSlice.reducer

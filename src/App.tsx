@@ -17,7 +17,7 @@ function App() {
     <main>
       <Input />
       <TasksList />
-      {tasks.length > 1 && <div className={styles.layout__box}>
+      {tasks.tasks.length > 1 && <div className={styles.layout__box}>
         <button className={styles.layout__button} onClick={handleButton}>
           Clear all
         </button>

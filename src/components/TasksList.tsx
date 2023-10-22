@@ -6,7 +6,7 @@ import {useEffect, useState} from "react";
 
 const TasksList = () => {
   const [filteredTasks, setFilteredTasks] = useState<any[]>([]);
-  const tasks = useSelector((store: any) => store.tasks)
+  const tasks = useSelector((store: any) => store.tasks.tasks)
 
   useEffect(() => {
     setFilteredTasks([

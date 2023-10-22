@@ -6,7 +6,7 @@ import {setTask} from "../store/tasksSlice";
 
 const Input = () => {
   const [inputValue, setInputValue] = useState('');
-  const lastUsedId = useSelector((store: any) => store.lastUsedId);
+  const lastUsedId = useSelector((store: any) => store.tasks.lastUsedId);
   const dispatch = useDispatch()
 
   const handlerInput = (e: any) => {
