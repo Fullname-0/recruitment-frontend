@@ -1,0 +1,61 @@
+@import './Variables.module';
+
+.task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex: 1 0 60%;
+  box-shadow:  1px 3px 6px rgba($color-secondary, .16),
+  -1px -3px 6px $color-white;
+  border-radius: 12px;
+  padding: 10px 20px;
+  list-style: none;
+
+  @media (max-width: $md) {
+    flex-direction: column;
+  }
+
+  &__box {
+    display: flex;
+    flex: 1 0 60%;
+    align-items: center;
+    overflow: hidden;
+
+    @media (max-width: $md) {
+      width: 90%;
+    }
+
+    & p {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      white-space: pre-wrap;
+      transition: all .4s ease;
+    }
+  }
+
+  &__button {
+    flex: 0;
+  }
+
+  &__active {
+
+    & button {
+      background-color: $color-green;
+
+      & path {
+        fill: $color-white;
+      }
+    }
+  }
+}
+
+.active {
+  text-decoration: line-through;
+  color: $color-green;
+}

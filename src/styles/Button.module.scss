@@ -1,0 +1,27 @@
+@import './Variables.module';
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  box-shadow:  1px 3px 6px rgba($color-secondary, .16),
+  -1px -3px 6px $color-white;
+  width: 40px;
+  height: 40px;
+  background-color: $color-thirdary;
+  border-radius: 50%;
+  cursor: pointer;
+  flex: 1 0 10%;
+  transition: all .4s ease;
+
+  &:active {
+    box-shadow: inset 1px 3px 6px rgba($color-secondary, .16),
+    inset -1px -3px 6px $color-white;
+  }
+
+  & svg {
+    width: 25px;
+    height: 25px;
+  }
+}
